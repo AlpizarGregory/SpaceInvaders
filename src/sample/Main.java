@@ -24,13 +24,12 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-//hola
 
 public class Main extends Application {
 
     AnimationTimer timer;
     Pane root = new Pane();
-    List<ImageView> monsters = new ArrayList<>();
+    MosterList<ImageView> monsters = new MosterList<>();
     List<Circle> mShoots = new ArrayList<>();
     List<Circle> pShoots = new ArrayList<>();
     ImageView player;
@@ -45,16 +44,12 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
-
-
-
         launch(args);
     }
 
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
 
 
 
@@ -93,7 +88,7 @@ public class Main extends Application {
 
         //Timeline for making monster shoots every few seconds
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> {
-            if (!monsters.isEmpty()) {
+            if (monsters.size() != 0) {
                 monstersShoot();
             }
         }));
@@ -127,9 +122,6 @@ public class Main extends Application {
         primaryStage.setTitle("Space Invaders");
         primaryStage.show();
 
-        MosterList list1 = new MosterList<>();
-        list1.add(1);
-        System.out.println(list1.get(0));
 
 
     }
@@ -215,7 +207,7 @@ public class Main extends Application {
                         && ((pShoots.get(i).getLayoutY() > monsters.get(j).getLayoutY())
                         && ((pShoots.get(i).getLayoutY() < monsters.get(j).getLayoutY() + 50))))){
                     root.getChildren().remove(monsters.get(j));
-                    monsters.remove(j);
+                    monsters.removes(j);
                     root.getChildren().remove(pShoots.get(i));
                     pShoots.remove(i);
                     numPoins += 10;
@@ -284,7 +276,7 @@ public class Main extends Application {
     }
 
      public void isWin(){
-        if(monsters.isEmpty()){
+        if(monsters.size() == 0){
             Text text = new Text();
             text.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 30));
             text.setX(80);

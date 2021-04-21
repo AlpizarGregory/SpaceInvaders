@@ -25,7 +25,7 @@ class MosterList<T> implements List<T>{
         }
     }
     @Override
-    public void remove(int index) {
+    public void removes(int index) {
         if (index == 0 && index < size){
             head = head.getNext();
             size--;

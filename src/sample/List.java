@@ -3,8 +3,10 @@ package sample;
 
 public interface List<T>{
     public void add(T value);
-    public void remove(int index);
+    public void removes(int index);
     public T get(int index);
     public int size();
     public void clear();
-    public void change(int i1, int i2);}
+    public void change(int i1, int i2);
+
+}
