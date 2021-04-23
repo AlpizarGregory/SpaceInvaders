@@ -1,5 +1,32 @@
 package sample;
 
+/**
+        *Instituto Tecnologico de Costa Rica
+
+        *Ingeniería en Computadores
+
+        *Lenguaje: Java.
+        *Versión: 15.0.1
+        *Autor(es): Gregory Gerardo Alpizar Cespedes.
+        *Fabian Jesús Castillo Cerdas.
+        *Erick Daniel Obando Venegas.
+        *Jose Andres Quiros Guzman.
+
+        *Versión: 1.0.1
+        *Curso: Algoritmos y Estructura de Datos I.
+        *Profesor: Jose Isaac Ramirez Herrera.
+        *Grupo: II
+
+        *Fecha de última modificación: 23/04/2021.
+
+*/
+
+
+
+
+
+//import necessary libraries
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,12 +54,14 @@ import javafx.util.Duration;
 
 public class Main extends Application {
 
+
+    //Creation of necessary variables and lists
     AnimationTimer timer;
     Pane root = new Pane();
     MonsterList<ImageView> monsters = new MonsterList<>();
     DoubleMonsterList<ImageView> monstersDouble = new DoubleMonsterList<>();
     CircularMonsterList<ImageView> monstersCircular =  new CircularMonsterList<>();
-    DoubleCircularMonsterList<ImageView> monstersDoubleCircular =  new DoubleCircularMonsterList<>();
+    DoubleMonsterList<ImageView> monstersDoubleCircular =  new DoubleMonsterList<>();
     List<Circle> mShoots = new ArrayList<>();
     List<Circle> pShoots = new ArrayList<>();
     ImageView player;
@@ -53,16 +82,6 @@ public class Main extends Application {
     int counter = 0;
     int firstAdd = 1;
     int counterWaveB = 0;
-    int live1;
-    int live2;
-    int live3;
-    int live4;
-    int live5;
-    int enemyPosition0;
-    int enemyPosition1;
-    int enemyPosition2;
-    int enemyPosition4;
-    int enemyPosition5;
     double mousex;
 
 
@@ -136,7 +155,7 @@ public class Main extends Application {
 
         //Timeline for making monster shoots every few seconds
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> {
-            if (monsters.size() != 0 || monstersDouble.size() != 0 || monstersCircular.size() != 0) {
+            if (monsters.size() != 0 || monstersDouble.size() != 0 || monstersCircular.size() != 0 || monstersDoubleCircular.size() != 0) {
                 monstersShoot();
             }
         }));
@@ -164,6 +183,7 @@ public class Main extends Application {
         });
 
 
+        //Stage characteristics
         primaryStage.setScene(scene);
         primaryStage.setTitle("Space Invaders");
         primaryStage.show();
@@ -171,8 +191,12 @@ public class Main extends Application {
 
     }
 
+    /**
+     * For constantly updating the game
+     */
 
     public void gameUpdate() {
+
         monstersShootUpdate();
         playersShootUpdate();
         isPlayerDestroyed();
@@ -183,27 +207,88 @@ public class Main extends Application {
         isLost();
     }
 
+
+    /**
+     * Creates a random number between a max and a min value
+     * @param min
+     * @param max
+     * @return
+     */
     public int rand(int min, int max) {
         return (int) (Math.random() * max + min);
     }
 
-
+    /**
+     * Creates a list with random values which will decide the monster waves types
+     */
     public void setRandomList() {
         for (int i = 0; i <= 9; i++) {
-            //A[i] = (int) (rand(1, 6));
-            A[i] = 6;
+            A[i] = (int) (rand(1, 6));
 
         }
     }
 
+
+    /**
+     * Puts all the monsters in their specific type of list, also displays the level and the types of enemy
+     * waves in the screen
+     */
     public void addMonsters() {
 
         waveType = A[counter];
 
+        if (A[counter] == 1){
+            wave.setText("Wave type: Basic");
 
-        wave.setText("Wave type: " + String.valueOf(A[counter]));
+        }
+        else if (A[counter] == 2){
+            wave.setText("Wave type: A");
 
-        waveNext.setText("Next wave type: " + String.valueOf(A[counter + 1]));
+        }
+        else if (A[counter] == 3){
+            wave.setText("Wave type: B");
+
+        }
+        else if (A[counter] == 4){
+            wave.setText("Wave type: C");
+
+        }
+        else if (A[counter] == 5){
+            wave.setText("Wave type: D");
+
+        }
+        else if (A[counter] == 6){
+            wave.setText("Wave type: E");
+
+        }
+
+
+        if (A[counter +1]  == 1){
+            waveNext.setText("Next wave type: Basic");
+
+        }
+        else if (A[counter +1]   == 2){
+            waveNext.setText("Next wave type: A");
+
+        }
+        else if (A[counter +1]  == 3){
+            waveNext.setText("Next wave type: B");
+
+        }
+        else if (A[counter+1]  == 4){
+            waveNext.setText("Next wave type: C");
+
+        }
+        else if (A[counter +1]  == 5){
+            waveNext.setText("Next wave type: D");
+
+        }
+        else if (A[counter +1]   == 6){
+            waveNext.setText("Next wave type: E");
+
+        }
+
+
 
 
         numLevel++;
@@ -264,19 +349,7 @@ public class Main extends Application {
 
             bossPosition = rand(0,5);
 
-/*
 
-            live1 = 1;
-            live2 = 2;
-            live3 = 3;
-            live4 = 5;
-            live5 = 6;
-            enemyPosition0 = 0;
-            enemyPosition1 = 1;
-            enemyPosition2 = 2;
-            enemyPosition4 = 4;
-            enemyPosition5 = 5;
-*/
             for (int i = 0, w = 46; i < 6; i++, w += 70) {
                 if (i == bossPosition) {
                     monstersCircular.add(monsterBoss(w, 80));
@@ -294,11 +367,11 @@ public class Main extends Application {
             bossPosition = 2;
             for (int i = 0, w = 75; i < 5; i++, w += 70) {
                 if (i == bossPosition) {
-                    monstersDouble.add(monsterBoss(w, 80));
+                    monstersDoubleCircular.add(monsterBoss(w, 80));
                 } else {
-                    monstersDouble.add(monster(w, 80));
+                    monstersDoubleCircular.add(monster(w, 80));
                 }
-                root.getChildren().add(monstersDouble.get(i));
+                root.getChildren().add(monstersDoubleCircular.get(i));
             }
 
 
@@ -307,10 +380,13 @@ public class Main extends Application {
     }
 
 
-    public void monstersMove() {
-        //monsters moving
-        double speed;
+    /**
+     *In charge of moving the different types of enemy waves
+     */
 
+    public void monstersMove() {
+
+        double speed;
 
         if (waveType == 1 || waveType == 2) {
             if (toRight)
@@ -400,60 +476,58 @@ public class Main extends Application {
             else
                 speed = -numLevel / 2.5;
 
-            for (int i = 0; i < monstersDouble.size(); i++) {
-                monstersDouble.get(i).setLayoutY(monstersDouble.get(i).getLayoutY() + speed);
+            for (int i = 0; i < monstersDoubleCircular.size(); i++) {
+                monstersDoubleCircular.get(i).setLayoutY(monstersDoubleCircular.get(i).getLayoutY() + speed);
             }
             dotR.setLayoutY(dotR.getLayoutY() + speed);
 
-            if((monstersDouble.get(1).getLayoutX() >= 145 && monstersDouble.get(1).getLayoutX() <= 220) && monstersDouble.get(1).getLayoutY() <= monstersDouble.get(bossPosition).getLayoutY()){
+            if((monstersDoubleCircular.get(1).getLayoutX() >= 145 && monstersDoubleCircular.get(1).getLayoutX() <= 220) && monstersDoubleCircular.get(1).getLayoutY() <= monstersDoubleCircular.get(bossPosition).getLayoutY()){
 
-                monstersDouble.get(1).setLayoutX(monstersDouble.get(1).getLayoutX() + speed);
-                monstersDouble.get(1).setLayoutY(monstersDouble.get(1).getLayoutY() - speed);
-                monstersDouble.get(0).setLayoutX(monstersDouble.get(0).getLayoutX() + speed + 0.4);
-                monstersDouble.get(0).setLayoutY(monstersDouble.get(0).getLayoutY() - speed - 0.4);
+                monstersDoubleCircular.get(1).setLayoutX(monstersDoubleCircular.get(1).getLayoutX() + speed);
+                monstersDoubleCircular.get(1).setLayoutY(monstersDoubleCircular.get(1).getLayoutY() - speed);
+                monstersDoubleCircular.get(0).setLayoutX(monstersDoubleCircular.get(0).getLayoutX() + speed * 2);
+                monstersDoubleCircular.get(0).setLayoutY(monstersDoubleCircular.get(0).getLayoutY() - speed * 2);
 
-                monstersDouble.get(3).setLayoutX(monstersDouble.get(3).getLayoutX() - speed );
-                monstersDouble.get(3).setLayoutY(monstersDouble.get(3).getLayoutY() + speed );
-                monstersDouble.get(4).setLayoutX(monstersDouble.get(4).getLayoutX() - speed - 0.4 );
-                monstersDouble.get(4).setLayoutY(monstersDouble.get(4).getLayoutY() + speed + 0.4);
-
-
+                monstersDoubleCircular.get(3).setLayoutX(monstersDoubleCircular.get(3).getLayoutX() - speed );
+                monstersDoubleCircular.get(3).setLayoutY(monstersDoubleCircular.get(3).getLayoutY() + speed );
+                monstersDoubleCircular.get(4).setLayoutX(monstersDoubleCircular.get(4).getLayoutX() - speed * 2);
+                monstersDoubleCircular.get(4).setLayoutY(monstersDoubleCircular.get(4).getLayoutY() + speed * 2);
 
             }
-            else if(monstersDouble.get(1).getLayoutX() >= 220  && monstersDouble.get(1).getLayoutY() < 230){
-                monstersDouble.get(1).setLayoutX(monstersDouble.get(1).getLayoutX() + speed);
-                monstersDouble.get(1).setLayoutY(monstersDouble.get(1).getLayoutY() + speed);
-                monstersDouble.get(0).setLayoutX(monstersDouble.get(0).getLayoutX() + speed + 0.4);
-                monstersDouble.get(0).setLayoutY(monstersDouble.get(0).getLayoutY() + speed + 0.4);
+            else if(monstersDoubleCircular.get(1).getLayoutX() >= 220  && monstersDoubleCircular.get(1).getLayoutY() < 230){
+                monstersDoubleCircular.get(1).setLayoutX(monstersDoubleCircular.get(1).getLayoutX() + speed);
+                monstersDoubleCircular.get(1).setLayoutY(monstersDoubleCircular.get(1).getLayoutY() + speed);
+                monstersDoubleCircular.get(0).setLayoutX(monstersDoubleCircular.get(0).getLayoutX() + speed * 2);
+                monstersDoubleCircular.get(0).setLayoutY(monstersDoubleCircular.get(0).getLayoutY() + speed * 2);
 
-                monstersDouble.get(3).setLayoutX(monstersDouble.get(3).getLayoutX() - speed );
-                monstersDouble.get(3).setLayoutY(monstersDouble.get(3).getLayoutY() - speed );
-                monstersDouble.get(4).setLayoutX(monstersDouble.get(4).getLayoutX() - speed - 0.4);
-                monstersDouble.get(4).setLayoutY(monstersDouble.get(4).getLayoutY() - speed - 0.4);
-
-            }
-            else if(monstersDouble.get(1).getLayoutX() >= 220  && monstersDouble.get(1).getLayoutY() > 230){
-                monstersDouble.get(1).setLayoutX(monstersDouble.get(1).getLayoutX() - speed);
-                monstersDouble.get(1).setLayoutY(monstersDouble.get(1).getLayoutY() + speed);
-                monstersDouble.get(0).setLayoutX(monstersDouble.get(0).getLayoutX() - speed - 0.4);
-                monstersDouble.get(0).setLayoutY(monstersDouble.get(0).getLayoutY() + speed + 0.4);
-
-                monstersDouble.get(3).setLayoutX(monstersDouble.get(3).getLayoutX() + speed );
-                monstersDouble.get(3).setLayoutY(monstersDouble.get(3).getLayoutY() - speed );
-                monstersDouble.get(4).setLayoutX(monstersDouble.get(4).getLayoutX() + speed + 0.4);
-                monstersDouble.get(4).setLayoutY(monstersDouble.get(4).getLayoutY() - speed - 0.4);
+                monstersDoubleCircular.get(3).setLayoutX(monstersDoubleCircular.get(3).getLayoutX() - speed );
+                monstersDoubleCircular.get(3).setLayoutY(monstersDoubleCircular.get(3).getLayoutY() - speed );
+                monstersDoubleCircular.get(4).setLayoutX(monstersDoubleCircular.get(4).getLayoutX() - speed * 2);
+                monstersDoubleCircular.get(4).setLayoutY(monstersDoubleCircular.get(4).getLayoutY() - speed * 2);
 
             }
-            else if((monstersDouble.get(1).getLayoutX() >= 144 && monstersDouble.get(1).getLayoutX() <= 220) && monstersDouble.get(1).getLayoutY() >= monstersDouble.get(bossPosition).getLayoutY()){
-                monstersDouble.get(1).setLayoutX(monstersDouble.get(1).getLayoutX() - speed);
-                monstersDouble.get(1).setLayoutY(monstersDouble.get(1).getLayoutY() - speed);
-                monstersDouble.get(0).setLayoutX(monstersDouble.get(0).getLayoutX() - speed - 0.4);
-                monstersDouble.get(0).setLayoutY(monstersDouble.get(0).getLayoutY() - speed - 0.4);
+            else if(monstersDoubleCircular.get(1).getLayoutX() >= 220  && monstersDoubleCircular.get(1).getLayoutY() > 230){
+                monstersDoubleCircular.get(1).setLayoutX(monstersDoubleCircular.get(1).getLayoutX() - speed);
+                monstersDoubleCircular.get(1).setLayoutY(monstersDoubleCircular.get(1).getLayoutY() + speed);
+                monstersDoubleCircular.get(0).setLayoutX(monstersDoubleCircular.get(0).getLayoutX() - speed * 2);
+                monstersDoubleCircular.get(0).setLayoutY(monstersDoubleCircular.get(0).getLayoutY() + speed * 2);
 
-                monstersDouble.get(3).setLayoutX(monstersDouble.get(3).getLayoutX() + speed );
-                monstersDouble.get(3).setLayoutY(monstersDouble.get(3).getLayoutY() + speed );
-                monstersDouble.get(4).setLayoutX(monstersDouble.get(4).getLayoutX() + speed + 0.4);
-                monstersDouble.get(4).setLayoutY(monstersDouble.get(4).getLayoutY() + speed + 0.4);
+                monstersDoubleCircular.get(3).setLayoutX(monstersDoubleCircular.get(3).getLayoutX() + speed );
+                monstersDoubleCircular.get(3).setLayoutY(monstersDoubleCircular.get(3).getLayoutY() - speed );
+                monstersDoubleCircular.get(4).setLayoutX(monstersDoubleCircular.get(4).getLayoutX() + speed * 2);
+                monstersDoubleCircular.get(4).setLayoutY(monstersDoubleCircular.get(4).getLayoutY() - speed * 2);
+
+            }
+            else if((monstersDoubleCircular.get(1).getLayoutX() >= 144 && monstersDoubleCircular.get(1).getLayoutX() <= 220) && monstersDoubleCircular.get(1).getLayoutY() >= monstersDoubleCircular.get(bossPosition).getLayoutY()){
+                monstersDoubleCircular.get(1).setLayoutX(monstersDoubleCircular.get(1).getLayoutX() - speed);
+                monstersDoubleCircular.get(1).setLayoutY(monstersDoubleCircular.get(1).getLayoutY() - speed);
+                monstersDoubleCircular.get(0).setLayoutX(monstersDoubleCircular.get(0).getLayoutX() - speed * 2);
+                monstersDoubleCircular.get(0).setLayoutY(monstersDoubleCircular.get(0).getLayoutY() - speed * 2);
+
+                monstersDoubleCircular.get(3).setLayoutX(monstersDoubleCircular.get(3).getLayoutX() + speed );
+                monstersDoubleCircular.get(3).setLayoutY(monstersDoubleCircular.get(3).getLayoutY() + speed );
+                monstersDoubleCircular.get(4).setLayoutX(monstersDoubleCircular.get(4).getLayoutX() + speed * 2);
+                monstersDoubleCircular.get(4).setLayoutY(monstersDoubleCircular.get(4).getLayoutY() + speed * 2);
 
             }
 
@@ -461,7 +535,12 @@ public class Main extends Application {
 
     }
 
+    /**
+     * Determines the behavior of the B type enemy wave
+     */
+
     public void monsterWaveB(){
+
 
         if(waveType == 3) {
 
@@ -488,12 +567,9 @@ public class Main extends Application {
     }
 
 
-
-
-
-
-
-
+    /**
+     * Creates the enemy shoots depending on the actual position of the invaders
+     */
     private void monstersShoot() {
         if (waveType == 1 || waveType == 2) {
             int getShootingMonsterIndex = rand(0, monsters.size() - 1);
@@ -513,11 +589,20 @@ public class Main extends Application {
             mShoots.add(shootMonster(monstersCircular.get(getShootingMonsterIndex).getLayoutX() + 25, monstersCircular.get(getShootingMonsterIndex).getLayoutY() + 25));
             root.getChildren().add((Node) mShoots.get(mShoots.size() - 1));
         }
+        if (waveType == 6) {
+            int getShootingMonsterIndex = rand(0, monstersDoubleCircular.size() - 1);
+            mShoots.add(shootMonster(monstersDoubleCircular.get(getShootingMonsterIndex).getLayoutX() + 25, monstersDoubleCircular.get(getShootingMonsterIndex).getLayoutY() + 25));
+            root.getChildren().add((Node) mShoots.get(mShoots.size() - 1));
+        }
+
+
 
 
     }
 
-
+    /**
+     * if a monster shoot leaves the screen it will be removed
+     */
     private void monstersShootUpdate() {
         if (!mShoots.isEmpty()) {
             for (int i = 0; i < mShoots.size(); i++) {
@@ -529,6 +614,10 @@ public class Main extends Application {
             }
         }
     }
+
+    /**
+     * Collisions for the enemies
+     */
 
     private void isMonsterDestroyed() {
 
@@ -730,159 +819,6 @@ public class Main extends Application {
                             && ((pShoots.get(i).getLayoutY() > monstersCircular.get(j).getLayoutY())
                             && ((pShoots.get(i).getLayoutY() < monstersCircular.get(j).getLayoutY() + 50))))) {
 
-/*
-                        if (j == enemyPosition0 ){
-
-
-                            if(live1 == 1){
-                                System.out.println("Primero");
-
-                                root.getChildren().remove(monstersCircular.get(j));
-                                monstersCircular.removes(j);
-                                root.getChildren().remove(pShoots.get(i));
-                                pShoots.remove(i);
-                                numPoints += 10;
-                                points.setText("Points: " + String.valueOf(numPoints));
-                                live1++;
-
-
-                            }else{
-                                live1--;
-                                root.getChildren().remove(pShoots.get(i));
-                                pShoots.remove(i);
-
-                            }
-
-                        }
-                        if (j == enemyPosition1){
-
-                            if (live2 == 1){
-
-                                System.out.println("segundo");
-
-                                root.getChildren().remove(monstersCircular.get(j));
-                                monstersCircular.removes(j);
-                                root.getChildren().remove(pShoots.get(i));
-                                pShoots.remove(i);
-                                numPoints += 10;
-                                points.setText("Points: " + String.valueOf(numPoints));
-
-
-
-                            }else{
-                                live2--;
-
-                                root.getChildren().remove(pShoots.get(i));
-                                pShoots.remove(i);
-
-
-                            }
-
-
-                        }
-
-                        if (j == enemyPosition2){
-                            System.out.println("tercero");
-
-                            if (live3 == 1){
-
-                                System.out.println("segundo");
-
-                                root.getChildren().remove(monstersCircular.get(j));
-                                monstersCircular.removes(j);
-                                root.getChildren().remove(pShoots.get(i));
-                                pShoots.remove(i);
-                                numPoints += 10;
-                                points.setText("Points: " + String.valueOf(numPoints));
-
-
-
-                            }else{
-                                live3--;
-                                root.getChildren().remove(pShoots.get(i));
-                                pShoots.remove(i);
-
-
-                            }
-
-
-                        }
-                        if (j == bossPosition){
-
-
-                            System.out.println("boss");
-
-                            if (bosslives == 1){
-
-                                System.out.println("segundo");
-
-                                root.getChildren().remove(monstersCircular.get(j));
-                                monstersCircular.removes(j);
-                                root.getChildren().remove(pShoots.get(i));
-                                pShoots.remove(i);
-                                numPoints += 10;
-                                points.setText("Points: " + String.valueOf(numPoints));
-
-
-                            }else{
-                                bosslives--;
-                                root.getChildren().remove(pShoots.get(i));
-                                pShoots.remove(i);
-                            }
-
-
-                        }
-                        if (j == enemyPosition4){
-                            if (live4 == 1){
-
-                                System.out.println("segundo");
-
-                                root.getChildren().remove(monstersCircular.get(j));
-                                monstersCircular.removes(j);
-                                root.getChildren().remove(pShoots.get(i));
-                                pShoots.remove(i);
-                                numPoints += 10;
-                                points.setText("Points: " + String.valueOf(numPoints));
-
-
-
-                            }else{
-
-                                live4--;
-                                root.getChildren().remove(pShoots.get(i));
-                                pShoots.remove(i);
-
-
-                            }
-
-                        }
-                        if (j == enemyPosition5){
-                            if (live5 == 1){
-
-                                System.out.println("segundo");
-
-                                root.getChildren().remove(monstersCircular.get(j));
-                                monstersCircular.removes(j);
-                                root.getChildren().remove(pShoots.get(i));
-                                pShoots.remove(i);
-                                numPoints += 10;
-                                points.setText("Points: " + String.valueOf(numPoints));
-
-
-
-                            }else{
-                                live5--;
-                                root.getChildren().remove(pShoots.get(i));
-                                pShoots.remove(i);
-
-
-                            }
-
-                        }
-
- */
-
-
 
                         if (j != bossPosition) {
 
@@ -933,14 +869,14 @@ public class Main extends Application {
         if (waveType == 6) {
 
             for (int i = 0; i < pShoots.size(); i++) {
-                for (int j = 0; j < monstersDouble.size(); j++) {
-                    if (((pShoots.get(i).getLayoutX() > monstersDouble.get(j).getLayoutX())
-                            && ((pShoots.get(i).getLayoutX() < monstersDouble.get(j).getLayoutX() + 50))
-                            && ((pShoots.get(i).getLayoutY() > monstersDouble.get(j).getLayoutY())
-                            && ((pShoots.get(i).getLayoutY() < monstersDouble.get(j).getLayoutY() + 50))))) {
+                for (int j = 0; j < monstersDoubleCircular.size(); j++) {
+                    if (((pShoots.get(i).getLayoutX() > monstersDoubleCircular.get(j).getLayoutX())
+                            && ((pShoots.get(i).getLayoutX() < monstersDoubleCircular.get(j).getLayoutX() + 50))
+                            && ((pShoots.get(i).getLayoutY() > monstersDoubleCircular.get(j).getLayoutY())
+                            && ((pShoots.get(i).getLayoutY() < monstersDoubleCircular.get(j).getLayoutY() + 50))))) {
 
-                        root.getChildren().remove(monstersDouble.get(j));
-                        monstersDouble.removes(j);
+                        root.getChildren().remove(monstersDoubleCircular.get(j));
+                        monstersDoubleCircular.removes(j);
                         root.getChildren().remove(pShoots.get(i));
                         pShoots.remove(i);
                         numPoints += 10;
@@ -955,6 +891,9 @@ public class Main extends Application {
     }
 
 
+    /**
+     * Determines the behavior of the C type enemy wave
+     */
     public void monsterWaveC(){
 
         int newPoss = rand(0,monstersCircular.size());
@@ -987,7 +926,9 @@ public class Main extends Application {
     }
 
 
-
+    /**
+     * Creates the player
+     */
     public ImageView player() {
         ImageView i = new ImageView(new Image(getClass().getResourceAsStream("Player.png")));
         i.setLayoutX(225);
@@ -998,7 +939,9 @@ public class Main extends Application {
     }
 
 
-
+    /**
+     * Creates the a basic monster
+     */
     public ImageView monster(double x, double y) {
 
         ImageView i = new ImageView(new Image(getClass().getResourceAsStream("Invader.png")));
@@ -1009,8 +952,9 @@ public class Main extends Application {
         return i;
     }
 
-
-
+    /**
+     * Creates the a boss monster
+     */
     public ImageView monsterBoss(double x, double y) {
         if (waveType == 5){
             bosslives = 4;
@@ -1032,11 +976,20 @@ public class Main extends Application {
         }
     }
 
+
+    /**
+     * Displays the player shoots on the screen depending the position of the player
+     * @param x
+     */
     public void playerShoot(double x) {
         pShoots.add(shoot(player.getLayoutX() + 25, player.getLayoutY() + 25));
         root.getChildren().add(pShoots.get(pShoots.size() - 1));
     }
 
+
+    /**
+     * if a player shoot leaves the screen it will be removed
+     */
     public void playersShootUpdate() {
         if (!pShoots.isEmpty()) {
             for (int i = 0; i < pShoots.size(); i++) {
@@ -1049,19 +1002,29 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * Collisions for the player
+     */
     private void isPlayerDestroyed() {
         for (int i = 0; i < mShoots.size(); i++) {
             if (((mShoots.get(i).getLayoutX() > player.getLayoutX())
                     && ((mShoots.get(i).getLayoutX() < player.getLayoutX() + 50))
                     && ((mShoots.get(i).getLayoutY() > player.getLayoutY())
                     && ((mShoots.get(i).getLayoutY() < player.getLayoutY() + 50))))) {
-                player.setLayoutX(225);
+                root.getChildren().remove(mShoots.get(i));
+                mShoots.remove(i);
                 numLives -= 1;
                 lives.setText("Lives: " + String.valueOf(numLives));
             }
         }
     }
 
+    /**
+     * Creates the shoots for the player
+     * @param x
+     * @param y
+     * @return
+     */
     public Circle shoot(double x, double y) {
         Circle c = new Circle();
         c.setFill(Color.GREENYELLOW);
@@ -1071,6 +1034,13 @@ public class Main extends Application {
         return c;
     }
 
+
+    /**
+     * Creates the shoots for the monsters
+     * @param x
+     * @param y
+     * @return
+     */
     public Circle shootMonster(double x, double y) {
         Circle c = new Circle();
         c.setFill(Color.RED);
@@ -1080,7 +1050,9 @@ public class Main extends Application {
         return c;
     }
 
-
+    /**
+     * Verifies if theres a win condition
+     */
     public void isWin() {
 
         if (waveType == 1 || waveType == 2) {
@@ -1156,6 +1128,9 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * Verifies if theres a lose condition
+     */
     public void isLost() {
         if (numLives <= 0) {
             Text text = new Text();
